@@ -22,6 +22,8 @@ def api_root(request, format=None):
         'news-votes': reverse('news-vote-list', request=request, format=format),
         'comment-votes': reverse('comment-vote-list', request=request, format=format),
         'comment-count/': reverse('comment-count', request=request, format=format),
+        'article-count/': reverse('article-count', request=request, format=format),
+        'news-count/': reverse('news-count', request=request, format=format),
     })
 
 
@@ -94,7 +96,7 @@ class NewsVoteCountView(APIView):
     def get(self, request, format=None):
         if 'news' not in request.query_params:
             return Response({"status": "Required field 'news' not found."}, status=status.HTTP_404_NOT_FOUND)
-            
+
         try:
             news = int(self.request.query_params.get('news', None))
         except ValueError:
