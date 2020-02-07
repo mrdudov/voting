@@ -21,6 +21,7 @@ def api_root(request, format=None):
         'article-votes': reverse('article-vote-list', request=request, format=format),
         'news-votes': reverse('news-vote-list', request=request, format=format),
         'comment-votes': reverse('comment-vote-list', request=request, format=format),
+        'comment-count/': reverse('comment-count', request=request, format=format),
     })
 
 
@@ -28,6 +29,12 @@ class CommentVoteCountView(APIView):
     renderer_classes = (JSONRenderer, )
 
     def get(self, request, format=None):
+
+
+        if 'comment' not in request.query_params:
+            return Response({"status": "Required field 'comment' not found."}, status=status.HTTP_404_NOT_FOUND)
+
+
         try:
             comment = int(self.request.query_params.get('comment', None))
         except ValueError:
@@ -55,6 +62,9 @@ class ArticleVoteCountView(APIView):
     renderer_classes = (JSONRenderer, )
 
     def get(self, request, format=None):
+        if 'article' not in request.query_params:
+            return Response({"status": "Required field 'article' not found."}, status=status.HTTP_404_NOT_FOUND)
+
         try:
             article = int(self.request.query_params.get('article', None))
         except ValueError:
@@ -82,6 +92,9 @@ class NewsVoteCountView(APIView):
     renderer_classes = (JSONRenderer, )
 
     def get(self, request, format=None):
+        if 'news' not in request.query_params:
+            return Response({"status": "Required field 'news' not found."}, status=status.HTTP_404_NOT_FOUND)
+            
         try:
             news = int(self.request.query_params.get('news', None))
         except ValueError:

@@ -9,7 +9,10 @@ urlpatterns = [
 
     path('comment/count/', views.CommentVoteCountView.as_view(), name='comment-count'),
     path('article/count/', views.ArticleVoteCountView.as_view(), name='article-count'),
+
     path('news/count/', views.NewsVoteCountView.as_view(), name='news-count'),
+    path('article/count/', views.ArticleVoteCountView.as_view(), name='article-count'),
+    path('comment/count/', views.CommentVoteCountView.as_view(), name='comment-count'),
 
     path('articles/', views.ArticleList.as_view(), name='article-list'),
     path('articles/<int:pk>', views.ArticleDetail.as_view(), name='article-detail'),
